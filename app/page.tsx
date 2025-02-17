@@ -143,15 +143,19 @@ const ZoomControls = ({ zoomIn, zoomOut, resetTransform }: ZoomControlsProps) =>
 );
 
 const BrandHeader = () => (
-  <div className="flex items-center gap-2">
-    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
+  <div className="flex items-center gap-3">
+    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-md">
       <Code className="h-5 w-5 text-white" />
     </div>
     <div>
-      <h1 className="text-xl font-bold">drawUML</h1>
-      <p className="text-xs text-gray-500">AI-Powered UML Diagram Generator</p>
+      <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+        DrawUML
+      </h1>
+      <p className="text-xs text-gray-500 font-medium">
+        AI-Powered UML Diagram Generator
+      </p>
     </div>
-        </div>
+  </div>
 );
 
 type DownloadFormat = 'svg' | 'png' | 'txt';
@@ -416,19 +420,19 @@ export default function Home() {
 
   return (
     <main className="h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="h-14 bg-white/50 backdrop-blur-sm border-b border-gray-200 px-4 flex justify-between items-center">
+      <nav className="h-16 bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 flex justify-between items-center sticky top-0 z-50">
         <BrandHeader />
         <a 
-          href="https://github.com/yourusername/drawuml" 
+          href="https://twitter.com/shreyashsng" 
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
         >
-          GitHub
+          Developed by <span className="font-semibold">Shreyash</span>
         </a>
-      </div>
+      </nav>
 
-      <div className="h-[calc(100vh-3.5rem)] p-4 flex gap-4">
+      <div className="h-[calc(100vh-4rem)] p-4 flex gap-4">
         <Card className="w-1/4 flex flex-col">
           <CardHeader className="shrink-0 pb-4">
             <BrandHeader />
@@ -507,7 +511,7 @@ export default function Home() {
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl max-h-[80vh]">
                     <DialogHeader>
-                      <DialogTitle>PlantUML Code</DialogTitle>
+                      <DialogTitle>DrawUML Code</DialogTitle>
                     </DialogHeader>
                     <div className="bg-gray-50 p-4 rounded-md overflow-auto max-h-[calc(80vh-8rem)]">
                       <pre className="text-sm">
@@ -617,7 +621,7 @@ export default function Home() {
             />
           </CardContent>
         </Card>
-    </div>
+      </div>
     </main>
   );
 }
