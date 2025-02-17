@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Loader2, Code, Info, ZoomIn, ZoomOut, Hand, Move, Download, Cpu } from "lucide-react";
+import { Loader2, Code, Info, ZoomIn, ZoomOut, Move, Download, Cpu } from "lucide-react";
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import {
   DropdownMenu,
@@ -107,7 +107,13 @@ const DiagramLegend = ({ type }: { type: DiagramType }) => {
   );
 };
 
-const ZoomControls = ({ zoomIn, zoomOut, resetTransform }: any) => (
+type ZoomControlsProps = {
+  zoomIn: (step?: number) => void;
+  zoomOut: (step?: number) => void;
+  resetTransform: () => void;
+};
+
+const ZoomControls = ({ zoomIn, zoomOut, resetTransform }: ZoomControlsProps) => (
   <div className="absolute bottom-4 left-4 z-20 flex gap-2">
     <Button
       variant="ghost"
