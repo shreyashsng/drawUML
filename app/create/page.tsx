@@ -14,7 +14,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import Link from 'next/link';
 import { Navbar } from "@/components/navbar";
 
-type AIModel = 'deepseek/deepseek-r1:free' | 'google/gemini-2.0-flash-lite-preview-02-05:free' | 'nvidia/llama-3.1-nemotron-70b-instruct:free';
+type AIModel = 'deepseek/deepseek-r1:free' | 'google/gemini-2.0-flash-lite-preview-02-05:free' | 'google/gemini-2.0-pro-exp-02-05:free';
 
 const ZoomControls = ({ zoomIn, zoomOut, resetTransform }: any) => (
   <div className="flex gap-2">
@@ -64,12 +64,12 @@ const ModelSelector = ({
       alias: 'deepseek-r1'
     },
     {
-      id: 'nvidia/llama-3.1-nemotron-70b-instruct:free',
-      name: 'Llama 3.1 Nemotron',
+      id: 'google/gemini-2.0-pro-exp-02-05:free',
+      name: 'Gemini 2.0 Experimental',
       description: 'High accuracy, 131K context window',
       temperature: 0.7,
       maxTokens: 131072,
-      alias: 'nemotron-70b'
+      alias: 'gemini-pro-exp'
     },
     {
       id: 'google/gemini-2.0-flash-lite-preview-02-05:free',
@@ -100,7 +100,11 @@ const ModelSelector = ({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[280px]">
+        <DropdownMenuContent 
+          align="end" 
+          className="w-[280px] bg-white/95 backdrop-blur-sm border-gray-200"
+          style={{ zIndex: 101 }}
+        >
           <DropdownMenuLabel className="flex items-center">
             <Cpu className="h-4 w-4 mr-2" />
             AI Model
@@ -157,7 +161,7 @@ export default function CreatePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ErrorType | null>(null);
   const [result, setResult] = useState<any>(null);
-  const [currentModel, setCurrentModel] = useState<AIModel>('google/gemini-2.0-flash-lite-preview-02-05:free');
+  const [currentModel, setCurrentModel] = useState<AIModel>('google/gemini-2.0-pro-exp-02-05:free');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -184,7 +188,6 @@ export default function CreatePage() {
       console.error('Generation error:', err);
       setResult(null);
       
-      // Set user-friendly error message with suggested action
       setError({
         message: 'Unable to generate diagram with the current model.',
         action: 'Try regenerating or switch to a different AI model.'
@@ -218,7 +221,7 @@ export default function CreatePage() {
 
   const downloadPlantUML = () => {
     if (!result) return;
-    const blob = new Blob([result.plantUML], { type: 'text/plain' });
+    const blob = new Blob([result.plantUMLCode], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
     downloadFile(url, `diagram-${diagramType}-${detailLevel}.txt`);
   };
@@ -369,10 +372,15 @@ export default function CreatePage() {
                     </DialogTrigger>
                     <DialogContent className="bg-white/95 backdrop-blur-sm">
                       <DialogHeader>
-                        <DialogTitle>PlantUML Code</DialogTitle>
+                        <DialogTitle className="flex items-center gap-2">
+                          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-1.5 rounded-md">
+                            <Code className="h-4 w-4 text-white" />
+                          </div>
+                          <span>DrawUML Code</span>
+                        </DialogTitle>
                       </DialogHeader>
-                      <pre className="bg-gray-50 p-4 rounded-lg overflow-auto">
-                        <code>{result.plantUML}</code>
+                      <pre className="bg-gray-50 p-4 rounded-lg overflow-auto max-h-[60vh] text-sm">
+                        <code>{result.plantUMLCode}</code>
                       </pre>
                     </DialogContent>
                   </Dialog>
@@ -419,7 +427,7 @@ export default function CreatePage() {
                 opacity: 0.5
               }} />
               
-              <div className="fixed bottom-8 right-8 z-50">
+              <div className="fixed bottom-8 right-8" style={{ zIndex: 100 }}>
                 <ModelSelector 
                   currentModel={currentModel}
                   onModelChange={handleModelChange}
