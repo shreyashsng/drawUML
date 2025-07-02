@@ -14,7 +14,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import Link from 'next/link';
 import { Navbar } from "@/components/navbar";
 
-type AIModel = 'deepseek/deepseek-r1:free' | 'google/gemini-2.0-flash-lite-preview-02-05:free' | 'google/gemini-2.0-pro-exp-02-05:free';
+type AIModel = 'deepseek/deepseek-r1:free' | 'google/gemma-3-27b-it:free';
 
 const ZoomControls = ({ zoomIn, zoomOut, resetTransform }: any) => (
   <div className="flex gap-2">
@@ -64,20 +64,12 @@ const ModelSelector = ({
       alias: 'deepseek-r1'
     },
     {
-      id: 'google/gemini-2.0-pro-exp-02-05:free',
-      name: 'Gemini 2.0 Experimental',
+      id: 'google/gemma-3-27b-it:freee',
+      name: 'Gemma 3 27B',
       description: 'High accuracy, 131K context window',
       temperature: 0.7,
       maxTokens: 131072,
-      alias: 'gemini-pro-exp'
-    },
-    {
-      id: 'google/gemini-2.0-flash-lite-preview-02-05:free',
-      name: 'Gemini Flash Lite',
-      description: 'Fast responses, balanced performance',
-      temperature: 0.7,
-      maxTokens: 4096,
-      alias: 'gemini-flash'
+      alias: 'gemma-3'
     }
   ];
 
